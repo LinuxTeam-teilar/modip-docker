@@ -8,6 +8,7 @@ if [ -z $1 ]; then
     echo -e "\tcreate \t Create the container"
     echo -e "\tstart \t Start the container"
     echo -e "\tshell \t Create a **NEW** container which will be running a shell!!!"
+    echo -e "\texec \t Start a bash session in modip_container"
     echo -e "\twith-sudo If you need sudo add --with-sudo"
     echo
     echo "Example ./modip-docker build --with-sudo"
@@ -23,9 +24,11 @@ fi
 if [ $1 == "build" ]; then
     $SUDO docker build --rm -t modip_image .
 elif [ $1 == "create" ]; then
-    $SUDO docker create --name="modip_container" modip-image
+    $SUDO docker create --name="modip_container" modip_image
 elif [ $1 == "start" ]; then
     $SUDO docker start modip_container
 elif [ $1 == "shell" ]; then
     $SUDO docker run -t -i modip_image /bin/bash
+elif [ $1 == "exec" ] ; then
+    $SUDO docker exec -t -i modip_container /bin/bash
 fi
