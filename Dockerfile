@@ -13,6 +13,8 @@ RUN yum -y install make
 RUN yum -y install git
 RUN yum -y install vim
 
+RUN useradd -s /bin/bash -m -d /var/lib/modip modip
+
 #################CREATE DB#################
 #Sudo requires a tty. fix that.
 RUN sed -i 's/.*requiretty$/#Defaults requiretty/' /etc/sudoers
@@ -29,6 +31,7 @@ RUN chmod +x /root/configure_db.sh
 #################INSTALL MODIP#############
 ADD ./scripts/install_modip.sh /root/install_modip.sh
 RUN chmod +x /root/install_modip.sh
+RUN /root/install_modip.sh
 
 #################START SUPERVISOR##########
 ADD ./configs/supervisord.conf /etc/supervisord.conf
