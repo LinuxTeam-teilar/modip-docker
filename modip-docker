@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+SUDO=""
+
+if [ -z $1 ]; then
+    echo "Choose one of the options"
+    echo -e "\tbuild \t Build the container"
+    echo -e "\tcreate \t Create the container"
+    echo -e "\tstart \t Start the container"
+    echo -e "\tshell \t Create a **NEW** container which will be running a shell!!!"
+    echo -e "\twith-sudo If you need sudo add --with-sudo"
+    echo
+    echo "Example ./modip-docker build --with-sudo"
+    exit 1
+fi
+
+if [ ! -z $2 ]; then
+    if [ $2 == "--with-sudo" ]; then
+        SUDO="sudo"
+    fi
+fi
+
+if [ $1 == "build" ]; then
+    $SUDO docker build --rm -t modip_image .
+elif [ $1 == "create" ]; then
+    $SUDO docker create --name="modip_container" modip-image
+elif [ $1 == "start" ]; then
+    $SUDO docker start modip_container
+elif [ $1 == "shell" ]; then
+    $SUDO docker run -t -i modip_image /bin/bash
+fi
