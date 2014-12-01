@@ -10,15 +10,14 @@ RUN yum -y install supervisor
 RUN yum -y install golang
 RUN yum -y install sudo
 
-
 #################CREATE DB#################
 #Sudo requires a tty. fix that.
 RUN sed -i 's/.*requiretty$/#Defaults requiretty/' /etc/sudoers
 
-ADD ./scripts/create_db.sh /create_db.sh
+ADD ./scripts/create_db.sh /root/create_db.sh
 
-RUN chmod +x /create_db.sh
-RUN /create_db.sh
+RUN chmod +x /root/create_db.sh
+RUN /root/create_db.sh
 
 #################CONFIGURE DB#################
 ADD ./scripts/configure_db.sh /root/configure_db.sh
@@ -29,7 +28,7 @@ RUN chmod +x /root/configure_db.sh
 #################START SUPERVISOR##########
 ADD ./configs/supervisord.conf /etc/supervisord.conf
 
-ADD ./scripts/start.sh /start.sh
-RUN chmod +x /start.sh
+ADD ./scripts/start.sh /root/start.sh
+RUN chmod +x /root/start.sh
 
-CMD ["/start.sh"]
+CMD ["/root/start.sh"]
