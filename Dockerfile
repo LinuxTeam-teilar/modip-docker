@@ -24,10 +24,6 @@ ADD ./scripts/create_db.sh /root/create_db.sh
 RUN chmod +x /root/create_db.sh
 RUN /root/create_db.sh
 
-#################CONFIGURE DB#############
-ADD ./scripts/configure_db.sh /root/configure_db.sh
-RUN chmod +x /root/configure_db.sh
-
 #################INSTALL MODIP#############
 ADD ./scripts/install_modip.sh /root/install_modip.sh
 RUN chmod +x /root/install_modip.sh
