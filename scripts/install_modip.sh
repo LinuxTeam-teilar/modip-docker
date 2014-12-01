@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 run_command="sudo -u modip"
-modip_dir=/var/lib/modip/modip
+modip_home=/var/lib/modip
+modip_dir=$modip_home/modip
 
 if [ ! -d $modip_dir ]; then
-    echo "foo"
-    # $run_command git clone something
+    $run_command git clone https://$username:$password@github.com/kokeroulis/modip $modip_home/modip
 fi
 
 cd $modip_dir
@@ -15,7 +15,6 @@ if [ ! -f $modip_dir/modip.conf ]; then
     $run_command sed -i s/tsiapaliokas/modip/g $modip_dir/modip.conf
 
     $run_command make install
-    $run_command make db-create-development
 fi
 
-$run_command make start
+$run_command GOPATH=$modip_dir/.gopath go build modip.go
