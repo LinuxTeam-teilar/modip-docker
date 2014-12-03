@@ -24,7 +24,10 @@ fi
 if [ $1 == "build" ]; then
     $SUDO docker build --rm -t modip_image .
 elif [ $1 == "create" ]; then
-    $SUDO docker create --name="modip_container" -p 3001:3001 modip_image
+    $SUDO docker create --name="modip_container" -p 3001:3001 \
+    -v $PWD/volume:/root/volume \
+    -v $PWD/supervisord.conf:/etc/supervisord.conf \
+    modip_image
 elif [ $1 == "start" ]; then
     $SUDO docker start modip_container
 elif [ $1 == "shell" ]; then

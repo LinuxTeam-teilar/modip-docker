@@ -5,7 +5,7 @@ modip_home=/var/lib/modip
 modip_dir=$modip_home/modip
 
 if [ ! -d $modip_dir ]; then
-    $run_command git clone https://$username:$password@github.com/kokeroulis/modip $modip_home/modip
+    $run_command git clone https://github.com/kokeroulis/modip.git /var/lib/modip/modip
 fi
 
 cd $modip_dir

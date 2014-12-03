@@ -30,8 +30,6 @@ RUN chmod +x /root/install_modip.sh
 RUN /root/install_modip.sh
 
 #################START SUPERVISOR##########
-ADD ./configs/supervisord.conf /etc/supervisord.conf
-
 ADD ./scripts/start.sh /root/start.sh
 RUN chmod +x /root/start.sh
 
